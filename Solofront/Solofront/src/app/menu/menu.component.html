@@ -1,0 +1,61 @@
+<!-- Navbar Start -->
+<div class="container-fluid sticky-top">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light border-bottom border-2 border-white" role="navigation" aria-label="Main navigation">
+      <!-- Marca -->
+      <a routerLink="/" class="navbar-brand" (click)="closeMenu()">
+        <h1>iSTUDIO</h1>
+      </a>
+
+      <!-- Botón hamburguesa -->
+      <button
+        type="button"
+        class="navbar-toggler ms-auto me-0"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen"
+        aria-controls="navbarCollapse"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Contenedor colapsable -->
+      <div class="collapse navbar-collapse" id="navbarCollapse" [class.show]="menuOpen">
+        <div class="navbar-nav ms-auto">
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-item nav-link" (click)="closeMenu()">Home</a>
+
+          <a [routerLink]="['/admin/admin']" routerLinkActive="active" class="nav-item nav-link" (click)="closeMenu()">Usuarios</a>
+          <a routerLink="/admin/roles" routerLinkActive="active" class="nav-item nav-link" (click)="closeMenu()">Roles</a>
+          <a routerLink="/admin/accesos" routerLinkActive="active" class="nav-item nav-link" (click)="closeMenu()">Accesos</a>
+
+          <!-- Categorías (nuevo) -->
+          <a routerLink="/categorias" routerLinkActive="active" class="nav-item nav-link" (click)="closeMenu()">Categorías</a>
+
+
+          <!-- Separador visual -->
+          <span class="nav-item d-none d-lg-block mx-2" aria-hidden="true">|</span>
+
+          <!-- Sesión -->
+          <ng-container *ngIf="!loading">
+            <!-- No logeado -->
+            <ng-container *ngIf="!nombre; else userBlock">
+              <a routerLink="/login" routerLinkActive="active" class="nav-item nav-link" (click)="closeMenu()">Iniciar sesión</a>
+              <a routerLink="/register" routerLinkActive="active" class="nav-item nav-link" (click)="closeMenu()">Registrarme</a>
+            </ng-container>
+
+            <!-- Logeado -->
+            <ng-template #userBlock>
+              <span class="navbar-text me-2">Hola, {{ nombre }}</span>
+              <button class="btn btn-sm btn-outline-danger" [disabled]="cerrando" (click)="salir()">
+                <span *ngIf="cerrando" class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+                {{ cerrando ? 'Cerrando...' : 'Cerrar sesión' }}
+              </button>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+<!-- Navbar End -->

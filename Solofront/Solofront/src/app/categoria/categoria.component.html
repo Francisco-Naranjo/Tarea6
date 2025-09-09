@@ -1,0 +1,40 @@
+<div class="container-md">
+  <div class="row align-items-center mb-3">
+    <div class="col">
+      <h1 class="m-0">Lista de Categorías</h1>
+    </div>
+    <div class="col-auto">
+      <a class="btn btn-outline-dark" routerLink="/categorias/nuevo">Nueva Categoría</a>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th style="width:70px">#</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th style="width:100px">Activo</th>
+          <th style="width:160px">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of lista; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ c.nombre }}</td>
+          <td>{{ c.descripcion }}</td>
+          <td>
+            <span class="badge" [class.text-bg-success]="c.activo" [class.text-bg-secondary]="!c.activo">
+              {{ c.activo ? 'Sí' : 'No' }}
+            </span>
+          </td>
+          <td class="d-flex gap-2 flex-wrap">
+            <a class="btn btn-sm btn-outline-success" [routerLink]="['/categorias/editar', c.id]">Editar</a>
+            <button class="btn btn-sm btn-outline-danger" (click)="eliminar(c.id!)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
